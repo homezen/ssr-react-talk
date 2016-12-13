@@ -31,7 +31,7 @@ const Widget = ({...props}) => (
 )
 
 render(
-    Widget,
+    <Widget />,
     document.getElementById('react-target'),
 )
 

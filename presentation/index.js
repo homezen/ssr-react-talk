@@ -37,10 +37,13 @@ require('spectacle/lib/themes/default/index.css')
 
 
 const images = {
+    bundlingDiagram: require('../assets/bundling-diagram.png'),
     homezenLogo: require('../assets/homzen-logo.png'),
     hybridDiagram: require('../assets/hybrid-diagram.png'),
-    univServeDiagram: require('../assets/univ-serve-diagram.png'),
     letItSnow: require('../assets/let-it-snow-animated.gif'),
+    localWebpackDiagram: require('../assets/local-webpack.png'),
+    snowfallAnimated: require('../assets/snowfall-animated.gif'),
+    univServeDiagram: require('../assets/univ-serve-diagram.png'),
 }
 
 preloader(images)
@@ -393,84 +396,254 @@ const UniversalBasicOutputSlide = (
     </Slide>
 )
 
-const UniversalCompilationPackagingSlide = (
-    <Slide transition={[]}>
+
+const UniversalConcernsSlide = (
+    <Slide>
+        <Heading size={1} fit>
+            {'Universal Apps Common Concerns'}
+        </Heading>
+        <List>
+            <ListItem bold>{'Compilation / module system / bundling'}</ListItem>
+            <ListItem bold>{'URL routing'}</ListItem>
+            <ListItem bold>{'Data loading'}</ListItem>
+            <ListItem bold>{'Error handling'}</ListItem>
+        </List>
     </Slide>
 )
 
-// TODO running locally
-// TODO running in prod
 
-const UniversalNaiveExampleCodeSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
-)
-
-const UnivStaticRenderingHtmlDocSlide = (
-    <Slide transition={[]}>
+const UniversalBundlingSlide = (
+    <Slide>
+        <Heading size={1} fit>
+            {'Compilation & Bundling'}
+        </Heading>
+        <List>
+            <ListItem bold>{'Separate entry points, same modules'}</ListItem>
+            <ListItem bold>{'Browser targeting/optimization'}</ListItem>
+            <ListItem bold>{'Node version targeting/optimization'}</ListItem>
+            <ListItem bold>{'CSS & assets as importable modules'}</ListItem>
+            <ListItem bold>{'Global var for special cases'}</ListItem>
+            <Code bold={false} margin='0 0 0 2.5em'>{'if (__IS_SERVER__)'}</Code>
+        </List>
     </Slide>
 )
 
-const UnivStaticRenderingHtmlDocExampleSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
-)
-
-const UnivRoutesNaiveExampleSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
-)
-
-const UnivRoutesReactRouterSlide = (
-    <Slide transition={[]}>
+const UniversalBundlingDiagramSlide = (
+    <Slide>
+        <Image src={imageUrls.bundlingDiagram} width='100%' />
     </Slide>
 )
 
-const UnivRoutesReactRouterExampleSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
+const UniversalBundlingResourcesSlide = (
+    <Slide bgColor='secondary' textColor='primary'>
+        <Heading size={1} fit>
+            {'Compilation & Bundling Tools'}
+        </Heading>
+        <List>
+            <ListItem><Link href='https://webpack.github.io/' textColor='primary'>
+                {'Webpack'}
+            </Link></ListItem>
+            <ListItem><Link href='http://browserify.org/' textColor='primary'>
+                {'Browserify'}
+            </Link></ListItem>
+            <ListItem><Link href='http://interlockjs.com/' textColor='primary'>
+                {'Interlock.js'}
+            </Link></ListItem>
+            <ListItem><Link href='http://rollupjs.org/' textColor='primary'>
+                {'Rollup'}
+            </Link></ListItem>
+            <ListItem><Link href='https://github.com/lasso-js/lasso' textColor='primary'>
+                {'Lasso'}
+            </Link></ListItem>
+        </List>
+    </Slide>
+)
+
+const UniversalRunLocallyWebpackSlide = (
+    <Slide>
+        <Heading size={1} fit>
+            {'Local Development of SSR App (webpack)'}
+        </Heading>
+        <Image src={imageUrls.localWebpackDiagram} height='100%' />
+    </Slide>
+)
+
+
+const UnivRoutingOverviewSlide = (
+    <Slide>
+        <Heading size={1}>
+            {'Universal Routing'}
+        </Heading>
+        <List>
+            <ListItem bold>{'Single definition for URL routes'}</ListItem>
+            <ListItem bold>{'Consistent behavior for path & querystring'}</ListItem>
+            <ListItem bold>{'Full http router functionality (e.g., path param)'}</ListItem>
+        </List>
+    </Slide>
+)
+
+const UnivRoutingLibrariesSlide = (
+    <Slide bgColor='secondary' textColor='primary'>
+        <Heading size={1} fit>
+            {'Universal React-compat Routers'}
+        </Heading>
+        <List>
+            <ListItem><Link href='https://github.com/ReactTraining/react-router' textColor='primary'>
+                {'React Router'}
+            </Link></ListItem>
+            <ListItem><Link href='https://github.com/kriasoft/universal-router' textColor='primary'>
+                {'Universal Router'}
+            </Link></ListItem>
+            <ListItem><Link href='http://router5.github.io/' textColor='primary'>
+                {'router5'}
+            </Link></ListItem>
+            <ListItem><Link href='https://github.com/STRML/react-router-component' textColor='primary'>
+                {'STRML React Router Component'}
+            </Link></ListItem>
+            <ListItem><Link href='https://github.com/avocode/react-universal-router' textColor='primary'>
+                {'Avocode Universal Router'}
+            </Link></ListItem>
+        </List>
+    </Slide>
+)
+
+const UnivRoutingReactRouterExampleSlide = (
+    <CodeSlide
+        transition={['zoom', 'fade']}
+        lang='js'
+        code={require('!raw!../assets/react-router-example.jsx')}
+        ranges={[
+            {loc: [0, 0], title: 'React Router SSR Example'},
+            {loc: [2, 11], note: 'Relevant imports'},
+            {loc: [11, 21], note: 'Define component and route(s)'},
+            {loc: [21, 24], note: 'Get full URL from request'},
+            {loc: [24, 27], note: 'Run React Router `match` with routes and URL'},
+            {loc: [27, 34], note: 'We receive useful args `error` and `redirectLocation`'},
+            {loc: [34, 35], note: 'renderProps encapsulates the router state for the URL'},
+            {loc: [35, 39], note: 'A <RouterContext> renders the component tree for a given router state.'},
+        ]}
+    />
 )
 
 const UnivDataLoadingOverviewSlide = (
-    <Slide transition={[]}>
+    <Slide>
+        <Heading size={1} fit>
+            {'Universal Data Loading'}
+        </Heading>
+        <List>
+            <ListItem bold>{'Remote API data needed to render'}</ListItem>
+            <ListItem bold>{'Initial load vs. client action/nav'}</ListItem>
+            <ListItem bold>{'Integration with flux/Redux/etc.'}</ListItem>
+            <ListItem bold>{'Bonus: intra-datacenter loading is fast'}</ListItem>
+        </List>
+    </Slide>
+)
+
+const UnivDataLoadingBasicAsyncExampleSlide = (
+    <CodeSlide
+        transition={['zoom', 'fade']}
+        lang='js'
+        code={require('!raw!../assets/basic-async-example.jsx')}
+        ranges={[
+            {loc: [0, 0], title: 'Basic Async Example'},
+            {loc: [0, 5], note: 'Normal imports'},
+            {loc: [5, 6], note: 'Some API with data we need'},
+            {loc: [6, 7], note: 'Helper for templating into the html doc'},
+            {loc: [8, 11], note: 'Our familiar App-y App component'},
+            {loc: [12, 13], note: 'Generic http handler with async support'},
+            {loc: [13, 14], note: 'Assume we load data based off some ID stored in a cookie'},
+            {loc: [14, 15], note: 'Make our API call and await the result (we need it to render)'},
+            {loc: [15, 18], note: 'We have the data needed to render, so render'},
+            {loc: [18, 19], note: 'Add app markup to html doc and send to client'},
+        ]}
+    />
+)
+
+const UnivDataLoadingDoubleRenderSlide = (
+    <Slide>
+        <Heading size={1} fit>
+            {'Decorate component / double render'}
+        </Heading>
+        <List>
+            <ListItem bold>{'Decorate components with async calls'}</ListItem>
+            <ListItem bold>{'Perform initial renderToString to invoke'}</ListItem>
+            <ListItem bold>{'Use results of async calls to render a 2nd time'}</ListItem>
+        </List>
     </Slide>
 )
 
 const UnivDataLoadingHydrationSlide = (
-    <Slide transition={[]}>
+    <Slide bgColor='secondary' textColor='primary'>
+        <Heading size={1}>
+            {'Problem'}
+        </Heading>
+        <Heading size={1} fit textColor='primary'>
+            {'Client rendered DOM must match'}
+        </Heading>
+        <Appear><div>
+            <Heading size={1} margin='1em auto auto'>
+                {'Solution'}
+            </Heading>
+            <Heading size={1} fit textColor='primary'>
+                {'"Hydrate" client via JSON in index document'}
+            </Heading>
+        </div></Appear>
     </Slide>
 )
 
 const UnivDataLoadingHydrationExampleSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
+    <CodeSlide
+        transition={['zoom', 'fade']}
+        lang='js'
+        code={require('!raw!../assets/basic-hydration-example.jsx')}
+        ranges={[
+            {loc: [0, 0], title: 'Basic Hydration Example'},
+            {loc: [0, 17], note: 'From our async example'},
+            {loc: [18, 19], note: 'Serialize the loaded data'},
+            {loc: [24, 27], note: 'And place it in an inline script'},
+            {loc: [37, 38], note: 'Send to the client'},
+            {loc: [42, 52], note: 'In the browser, we can pull it from window'},
+        ]}
+    />
 )
 
-const UnivDataLoadingTradeoffsSlide = (
-    <Slide transition={[]}>
+
+const UnivErrorHandlingOverviewSlide = (
+    <Slide>
+        <Heading size={1} fit>
+            {'Universal Error Handling'}
+        </Heading>
+        <List>
+            <ListItem bold>{'Use error aggregation service (e.g, Rollbar)'}</ListItem>
+            <ListItem bold>{'Add to client (via document) and server'}</ListItem>
+            <ListItem bold>{'Create universal function for caught errors'}</ListItem>
+        </List>
     </Slide>
 )
 
-const UnivDataLoadingNaiveExampleSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
-)
-
-const UnivDataLoadingDoubleRenderExampleSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
-)
-
-const UnivDataLoadingHocExampleSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
-)
-
 const FinalSlide = (
-    <Slide transition={['spin', 'slide']} bgColor='tertiary'>
+    <Slide
+        transition={['spin', 'slide']}
+        bgColor='tertiary'
+        textColor='primary'
+        bgImage={imageUrls.snowfallAnimated}
+        bgDarken={0.6}
+    >
         <Heading size={1} caps fit lineHeight={1.5} textColor='primary'>
-            {'Happy Holidays'}
+            {'Thanks & Happy Holidays'}
         </Heading>
+        <Link href='https://www.github.com/SpainTrain'>
+            <Text textColor='tertiary' textSize='2em' margin='0.75em auto'>
+                <SimpleIcon size={64} name='github'/>
+                {' SpainTrain'}
+            </Text>
+        </Link>
+        <Link href='https://www.twitter.com/spainmtrain'>
+            <Text textColor='tertiary' textSize='2em' margin='0.75em auto'>
+                <SimpleIcon size={64} name='twitter'/>
+                {'@spainmtrain'}
+            </Text>
+        </Link>
     </Slide>
 )
 
@@ -502,23 +675,24 @@ export default class Presentation extends React.Component {
                     {UniversalBasicCodeSlide}
                     {UniversalBasicOutputSlide}
 
-                    {UniversalCompilationPackagingSlide}
-                    {UniversalNaiveExampleCodeSlide}
+                    {UniversalConcernsSlide}
 
-                    {UnivStaticRenderingHtmlDocSlide}
-                    {UnivStaticRenderingHtmlDocExampleSlide}
+                    {UniversalBundlingSlide}
+                    {UniversalBundlingDiagramSlide}
+                    {UniversalBundlingResourcesSlide}
+                    {UniversalRunLocallyWebpackSlide}
 
-                    {UnivRoutesNaiveExampleSlide}
-                    {UnivRoutesReactRouterSlide}
-                    {UnivRoutesReactRouterExampleSlide}
+                    {UnivRoutingOverviewSlide}
+                    {UnivRoutingLibrariesSlide}
+                    {UnivRoutingReactRouterExampleSlide}
 
                     {UnivDataLoadingOverviewSlide}
+                    {UnivDataLoadingBasicAsyncExampleSlide}
+                    {UnivDataLoadingDoubleRenderSlide}
                     {UnivDataLoadingHydrationSlide}
                     {UnivDataLoadingHydrationExampleSlide}
-                    {UnivDataLoadingTradeoffsSlide}
-                    {UnivDataLoadingNaiveExampleSlide}
-                    {UnivDataLoadingDoubleRenderExampleSlide}
-                    {UnivDataLoadingHocExampleSlide}
+
+                    {UnivErrorHandlingOverviewSlide}
 
                     {FinalSlide}
                 </Deck>

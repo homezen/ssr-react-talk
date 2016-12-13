@@ -35,7 +35,7 @@ const WidgetA = ({...props}) => (
 )
 
 render(
-  WidgetA,
+  <WidgetA />,
   document.getElementById('react-target'),
 )
 
@@ -49,7 +49,7 @@ const WidgetB = ({...props}) => (
 )
 
 render(
-  WidgetB,
+  <WidgetB />,
   document.getElementById('react-target'),
 )
 
@@ -63,7 +63,7 @@ const WidgetC = ({...props}) => (
 )
 
 render(
-    WidgetC,
+    <WidgetC />,
     document.getElementById('react-target'),
 )
 

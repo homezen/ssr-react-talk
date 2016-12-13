@@ -42,7 +42,7 @@ import {render} from 'react-dom'
 
 if (typeof document !== 'undefined') {
   render(
-    App,
+    <App />,
     document.getElementById('react-target'),
   )
 }
