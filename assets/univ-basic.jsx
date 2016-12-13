@@ -9,7 +9,9 @@ const App = ({...props}) => (
 
 // server.js
 // import React from 'react'
-import {renderToString} from 'react-dom/server'
+import {
+  renderToString,
+} from 'react-dom/server'
 
 const appAsString = renderToString(
   <App

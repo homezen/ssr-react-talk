@@ -37,6 +37,7 @@ require('spectacle/lib/themes/default/index.css')
 
 
 const images = {
+    homezenLogo: require('../assets/homzen-logo.png'),
     hybridDiagram: require('../assets/hybrid-diagram.png'),
     univServeDiagram: require('../assets/univ-serve-diagram.png'),
     letItSnow: require('../assets/let-it-snow-animated.gif'),
@@ -72,7 +73,7 @@ const TitleSlide = (
         transition={['fade']}
         textColor='primary'
         bgImage={imageUrls.letItSnow}
-        bgDarken={0.75}
+        bgDarken={0.7}
     >
         <Heading size={1} fit caps lineHeight={1} textColor='primary'>
             {'React S/SSR'}
@@ -93,6 +94,9 @@ const TitleSlide = (
             <Text bold caps textColor='tertiary' margin='6em auto 0'>
                 {' View Source  '}
                 <SimpleIcon name='github' size={48} style={{marginBottom: '-8px'}} />
+            </Text>
+            <Text textColor='tertiary' margin='0.3em auto 0'>
+                {'homezen/ssr-react-talk'}
             </Text>
         </Link>
     </Slide>
@@ -115,7 +119,8 @@ const AuthorSlide = (
             {'Dev/Cofounder @ homezen'}
         </Heading>
         <Link href='https://www.myhomezen.com'>
-            <Text bold caps textColor='tertiary' margin='6em auto'>
+            <Image src={images.homezenLogo} width={240} margin='4em auto 0' />
+            <Text bold caps textColor='tertiary' margin='1em auto'>
                 {'myhomezen.com'}
             </Text>
         </Link>
@@ -133,6 +138,7 @@ const StaticVsServerOverviewSlide = (
             <div>
                 <List>
                     <Code>{'ReactDOMServer.renderToString()'}</Code>
+                    <ListItem bold>{'Includes React DOM attributes'}</ListItem>
                     <ListItem bold>{'As if we dumped html from ReactDom.render()'}</ListItem>
                     <ListItem bold>{'Universal/isomorphic'}</ListItem>
                 </List>
@@ -149,7 +155,7 @@ const StaticVsServerOverviewSlide = (
                     <Code>{'ReactDOMServer.renderToStaticMarkup()'}</Code>
                     <ListItem bold>{'Raw HTML'}</ListItem>
                     <ListItem bold>{'No React IDs or other "decorations"'}</ListItem>
-                    <ListItem bold>{'Analogous to e.g., jade, handlebars'}</ListItem>
+                    <ListItem bold>{'(Somewhat) analogous to e.g., jade, handlebars'}</ListItem>
                 </List>
             </div>
         </Appear>
@@ -352,13 +358,13 @@ const UniversalBasicCodeSlide = (
         ranges={[
             {loc: [0, 0], title: 'Basic universal app'},
             {loc: [0, 6], note: 'Universal (shared) component'},
-            {loc: [9, 12], note: 'Server imports renderToString'},
-            {loc: [13, 18], note: 'Render component to decorated string'},
-            {loc: [19, 32], note: 'Here is the html document'},
-            {loc: [25, 28], note: 'Place the server rendered app into the target div'},
-            {loc: [28, 29], note: 'Include the client bundle of the same app'},
-            {loc: [37, 46], note: 'Include the client bundle of the same app'},
-            {loc: [34, 35], note: 'Just testing, print to console'},
+            {loc: [9, 14], note: 'Server imports renderToString'},
+            {loc: [15, 20], note: 'Render component to decorated string'},
+            {loc: [21, 34], note: 'Here is the html document'},
+            {loc: [27, 30], note: 'Place the server rendered app into the target div'},
+            {loc: [30, 31], note: 'Include the client bundle of the same app'},
+            {loc: [39, 48], note: 'Include the client bundle of the same app'},
+            {loc: [35, 36], note: 'Just testing, print to console'},
         ]}
     />
 )
@@ -369,8 +375,9 @@ const UniversalBasicOutputSlide = (
             source='$ npm run demo-univ-basic'
             textSize='1em' />
         <CodePane
-            source={`
-<html>
+            lang='markup'
+            source={
+`<html>
   <head>
     <title>Holiday App</title>
   </head>
@@ -380,8 +387,8 @@ const UniversalBasicOutputSlide = (
     </div>
     <script async src='./client.js' />
   </body>
-</html>
-            `}
+</html>`
+            }
             textSize='1em' />
     </Slide>
 )
@@ -472,28 +479,29 @@ export default class Presentation extends React.Component {
         return (
             <Spectacle theme={theme}>
                 <Deck transition={['zoom', 'slide']} transitionDuration={500}>
-                    {TitleSlide} {/**/}
-                    {AuthorSlide} {/**/}
+                    {TitleSlide}
+                    {AuthorSlide}
 
-                    {StaticVsServerOverviewSlide} {/**/}
-                    {RationaleStaticSlide} {/**/}
-                    {RationaleServerUniversalSlide} {/**/}
+                    {StaticVsServerOverviewSlide}
+                    {RationaleStaticSlide}
+                    {RationaleServerUniversalSlide}
 
-                    {StaticOverviewSlide} {/**/}
-                    {StaticNaiveExampleCodeSlide} {/**/}
-                    {StaticNaiveExampleOutputSlide} {/**/}
+                    {StaticOverviewSlide}
+                    {StaticNaiveExampleCodeSlide}
+                    {StaticNaiveExampleOutputSlide}
 
-                    {HybridOverviewSlide} {/**/}
-                    {HybridExampleCodeSlide} {/**/}
-                    {HybridDiagramSlide} {/**/}
-                    {HybridMultipleExampleCodeSlide} {/**/}
-                    {StaticHomezenExampleCodeSlide} {/**/}
-                    {StaticGenerationResourcesSlide} {/**/}
+                    {HybridOverviewSlide}
+                    {HybridExampleCodeSlide}
+                    {HybridDiagramSlide}
+                    {HybridMultipleExampleCodeSlide}
+                    {StaticHomezenExampleCodeSlide}
+                    {StaticGenerationResourcesSlide}
 
-                    {UniversalOverviewSlide} {/**/}
-                    {UniversalOverviewDiagramSlide} {/**/}
-                    {UniversalBasicCodeSlide} {/**/}
-                    {UniversalBasicOutputSlide} {/**/}
+                    {UniversalOverviewSlide}
+                    {UniversalOverviewDiagramSlide}
+                    {UniversalBasicCodeSlide}
+                    {UniversalBasicOutputSlide}
+
                     {UniversalCompilationPackagingSlide}
                     {UniversalNaiveExampleCodeSlide}
 
