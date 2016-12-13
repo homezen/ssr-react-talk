@@ -1,3 +1,7 @@
+import {
+    mapValues,
+} from 'lodash'
+
 import React from 'react'
 
 import {
@@ -9,7 +13,7 @@ import {
     Deck,
     // Fill,
     Heading,
-    // Image,
+    Image,
     // Layout,
     Link,
     ListItem,
@@ -33,14 +37,14 @@ require('spectacle/lib/themes/default/index.css')
 
 
 const images = {
-    city: require('../assets/city.jpg'),
-    kat: require('../assets/kat.png'),
+    hybridDiagram: require('../assets/hybrid-diagram.png'),
+    univServeDiagram: require('../assets/univ-serve-diagram.png'),
     letItSnow: require('../assets/let-it-snow-animated.gif'),
-    logo: require('../assets/formidable-logo.svg'),
-    markdown: require('../assets/markdown.png'),
 }
 
 preloader(images)
+
+const imageUrls = mapValues(images, (img) => img.replace('/', ''))
 
 // const sansFontFamily = `
 // -apple-system, BlinkMacSystemFont,
@@ -67,7 +71,7 @@ const TitleSlide = (
     <Slide
         transition={['fade']}
         textColor='primary'
-        bgImage={images.letItSnow.replace('/', '')}
+        bgImage={imageUrls.letItSnow}
         bgDarken={0.75}
     >
         <Heading size={1} fit caps lineHeight={1} textColor='primary'>
@@ -153,33 +157,47 @@ const StaticVsServerOverviewSlide = (
 )
 
 const RationaleStaticSlide = (
-    <Slide transition={[]} bgColor='secondary' textColor='primary'>
+    <Slide
+        transition={[]}
+        bgColor='secondary'
+        textColor='primary'
+        notes='Like Jekyll, et al.  Allows aggressive caching (as with any static content).'
+    >
         <Heading size={1} fit>
             {'Why Static Rendering?'}
         </Heading>
-        <List>
-            <ListItem bold>{'Use as/with static site generator'}</ListItem>
-            <ListItem bold>{'Templating system for Universal app'}</ListItem>
-            <ListItem bold>{'???'}</ListItem>
-        </List>
+        <Appear><div>
+            <Heading size={2} fit textColor='primary' margin='1em 0 0'>
+                {'Efficiently deliver non-interactive content'}
+            </Heading>
+            <List>
+                <ListItem bold>{'Use as/with static site generator'}</ListItem>
+                <ListItem bold>{'Templating system for Universal app'}</ListItem>
+            </List>
+        </div></Appear>
     </Slide>
 )
 
 const RationaleServerUniversalSlide = (
-    <Slide transition={[]} bgColor='secondary' textColor='primary'>
+    <Slide bgColor='secondary' textColor='primary'>
         <Heading size={1} fit>
             {'Why Universal Apps?'}
         </Heading>
-        <List>
-            <ListItem bold>{'Perceived (and actual) page load speed'}</ListItem>
-            <ListItem bold>{'Search engine optimization'}</ListItem>
-            <ListItem bold>{'NOT API replacement'}</ListItem>
-        </List>
+        <Appear><div>
+            <Heading size={2} fit textColor='primary' margin='1em 0 0'>
+                {'Initialize the page for the client'}
+            </Heading>
+            <List>
+                <ListItem bold>{'Perceived (and actual) page load speed'}</ListItem>
+                <ListItem bold>{'Search engine optimization'}</ListItem>
+                <ListItem bold>{'NOT API replacement'}</ListItem>
+            </List>
+        </div></Appear>
     </Slide>
 )
 
 const StaticOverviewSlide = (
-    <Slide transition={[]}>
+    <Slide>
         <Text bold>
             {"Let's take a look at static rendering for templating"}
         </Text>
@@ -202,7 +220,7 @@ const StaticNaiveExampleCodeSlide = (
 )
 
 const StaticNaiveExampleOutputSlide = (
-    <Slide transition={[]}>
+    <Slide>
         <CodePane
             source='$ npm run demo-static-basic'
             textSize='1em' />
@@ -213,7 +231,7 @@ const StaticNaiveExampleOutputSlide = (
 )
 
 const HybridOverviewSlide = (
-    <Slide transition={[]}>
+    <Slide>
         <Text bold>
             {'Static apps can also have embedded client-only apps'}
         </Text>
@@ -227,7 +245,7 @@ const HybridExampleCodeSlide = (
         lang='jsx'
         code={require('!raw!../assets/hybrid-basic.jsx')}
         ranges={[
-            {loc: [0, 0], title: 'Basic Static+Client Rendering'},
+            {loc: [0, 0], title: 'Static + Client Rendering'},
             {loc: [0, 11], note: 'Same as before'},
             {loc: [11, 12], note: 'Render target for client react app'},
             {loc: [12, 13], note: 'Add client react app script to page'},
@@ -237,23 +255,134 @@ const HybridExampleCodeSlide = (
     />
 )
 
+const HybridDiagramSlide = (
+    <Slide>
+        <Image src={imageUrls.hybridDiagram} width='100%' />
+    </Slide>
+)
+
 const HybridMultipleExampleCodeSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
+    <CodeSlide
+        transition={['zoom', 'fade']}
+        lang='jsx'
+        code={require('!raw!../assets/hybrid-multiple.jsx')}
+        ranges={[
+            {loc: [0, 0], title: 'Multi-widget'},
+            {loc: [8, 18], note: 'Just add widgets'},
+            {loc: [11, 12], note: 'Multiple render targets'},
+            {loc: [12, 13], note: 'Multiple render targets'},
+            {loc: [13, 14], note: 'Multiple render targets'},
+            {loc: [14, 15], note: 'Multiple client source files'},
+            {loc: [29, 41], note: 'Multiple client source files'},
+            {loc: [15, 16], note: 'Multiple client source files'},
+            {loc: [43, 55], note: 'Multiple client source files'},
+            {loc: [16, 17], note: 'Multiple client source files'},
+            {loc: [57, 69], note: 'Multiple client source files'},
+            {loc: [21, 27], note: 'Render & Serve just like before'},
+        ]}
+    />
 )
 
 const StaticHomezenExampleCodeSlide = (
-    <CodeSlide transition={[]}>
-    </CodeSlide>
+    <CodeSlide
+        transition={['zoom', 'fade']}
+        lang='js'
+        code={require('!raw!../assets/homezen-static-example')}
+        ranges={[
+            {loc: [0, 0], title: 'homezen example - legal form'},
+            {loc: [5, 7], note: 'basic imports'},
+            {loc: [15, 16], note: 'Note: this is an express handler'},
+            {loc: [18, 19], note: 'Get props from request JSON body'},
+            {loc: [25, 26], note: 'Get component we want to render'},
+            {loc: [26, 29], note: 'Render component to string with props'},
+            {loc: [31, 32], note: 'Serve'},
+        ]}
+    />
 )
 
 const StaticGenerationResourcesSlide = (
-    <Slide transition={[]}>
+    <Slide bgColor='secondary' textColor='primary'>
+        <Heading size={1} fit>
+            {'Static Site Generation Resources'}
+        </Heading>
+        <List>
+            <ListItem><Link href='https://phenomic.io/' textColor='primary'>
+                {'Penomic'}
+            </Link></ListItem>
+            <ListItem><Link href='https://github.com/gatsbyjs/gatsby' textColor='primary'>
+                {'gatsby'}
+            </Link></ListItem>
+            <ListItem><Link href='https://github.com/markdalgleish/static-site-generator-webpack-plugin' textColor='primary'>
+                {'static site generator webpack plugin'}
+            </Link></ListItem>
+            <ListItem><Link href='http://jxnblk.com/ejsx/' textColor='primary'>
+                {'Ejsx'}
+            </Link></ListItem>
+            <ListItem><Link href='https://mjml.io/' textColor='primary'>
+                {'MJML (Email)'}
+            </Link></ListItem>
+        </List>
     </Slide>
 )
 
 const UniversalOverviewSlide = (
-    <Slide transition={[]}>
+    <Slide>
+        <Heading size={1}>
+            {'Universal Apps'}
+        </Heading>
+        <List>
+            <ListItem bold>{'Server & client render same area of page'}</ListItem>
+            <ListItem bold>{'Server initializes page with React DOM attributes'}</ListItem>
+            <ListItem bold>{'Client diffs and attaches event listeners'}</ListItem>
+        </List>
+    </Slide>
+)
+
+const UniversalOverviewDiagramSlide = (
+    <Slide>
+        <Image src={imageUrls.univServeDiagram} width='100%'/>
+    </Slide>
+)
+
+const UniversalBasicCodeSlide = (
+    <CodeSlide
+        transition={['zoom', 'fade']}
+        lang='js'
+        code={require('!raw!../assets/univ-basic.jsx')}
+        ranges={[
+            {loc: [0, 0], title: 'Basic universal app'},
+            {loc: [0, 6], note: 'Universal (shared) component'},
+            {loc: [9, 12], note: 'Server imports renderToString'},
+            {loc: [13, 18], note: 'Render component to decorated string'},
+            {loc: [19, 32], note: 'Here is the html document'},
+            {loc: [25, 28], note: 'Place the server rendered app into the target div'},
+            {loc: [28, 29], note: 'Include the client bundle of the same app'},
+            {loc: [37, 46], note: 'Include the client bundle of the same app'},
+            {loc: [34, 35], note: 'Just testing, print to console'},
+        ]}
+    />
+)
+
+const UniversalBasicOutputSlide = (
+    <Slide>
+        <CodePane
+            source='$ npm run demo-univ-basic'
+            textSize='1em' />
+        <CodePane
+            source={`
+<html>
+  <head>
+    <title>Holiday App</title>
+  </head>
+  <body>
+    <div id='react-target'>
+      <div data-reactroot="" data-reactid="1" data-react-checksum="1998851930"></div>
+    </div>
+    <script async src='./client.js' />
+  </body>
+</html>
+            `}
+            textSize='1em' />
     </Slide>
 )
 
@@ -343,27 +472,38 @@ export default class Presentation extends React.Component {
         return (
             <Spectacle theme={theme}>
                 <Deck transition={['zoom', 'slide']} transitionDuration={500}>
-                    {TitleSlide}
-                    {AuthorSlide}
-                    {StaticVsServerOverviewSlide}
-                    {RationaleStaticSlide}
-                    {RationaleServerUniversalSlide}
-                    {StaticOverviewSlide}
-                    {StaticNaiveExampleCodeSlide}
-                    {StaticNaiveExampleOutputSlide}
-                    {HybridOverviewSlide}
-                    {HybridExampleCodeSlide}
-                    {HybridMultipleExampleCodeSlide}
-                    {StaticHomezenExampleCodeSlide}
-                    {StaticGenerationResourcesSlide}
-                    {UniversalOverviewSlide}
+                    {TitleSlide} {/**/}
+                    {AuthorSlide} {/**/}
+
+                    {StaticVsServerOverviewSlide} {/**/}
+                    {RationaleStaticSlide} {/**/}
+                    {RationaleServerUniversalSlide} {/**/}
+
+                    {StaticOverviewSlide} {/**/}
+                    {StaticNaiveExampleCodeSlide} {/**/}
+                    {StaticNaiveExampleOutputSlide} {/**/}
+
+                    {HybridOverviewSlide} {/**/}
+                    {HybridExampleCodeSlide} {/**/}
+                    {HybridDiagramSlide} {/**/}
+                    {HybridMultipleExampleCodeSlide} {/**/}
+                    {StaticHomezenExampleCodeSlide} {/**/}
+                    {StaticGenerationResourcesSlide} {/**/}
+
+                    {UniversalOverviewSlide} {/**/}
+                    {UniversalOverviewDiagramSlide} {/**/}
+                    {UniversalBasicCodeSlide} {/**/}
+                    {UniversalBasicOutputSlide} {/**/}
                     {UniversalCompilationPackagingSlide}
                     {UniversalNaiveExampleCodeSlide}
+
                     {UnivStaticRenderingHtmlDocSlide}
                     {UnivStaticRenderingHtmlDocExampleSlide}
+
                     {UnivRoutesNaiveExampleSlide}
                     {UnivRoutesReactRouterSlide}
                     {UnivRoutesReactRouterExampleSlide}
+
                     {UnivDataLoadingOverviewSlide}
                     {UnivDataLoadingHydrationSlide}
                     {UnivDataLoadingHydrationExampleSlide}
@@ -371,6 +511,7 @@ export default class Presentation extends React.Component {
                     {UnivDataLoadingNaiveExampleSlide}
                     {UnivDataLoadingDoubleRenderExampleSlide}
                     {UnivDataLoadingHocExampleSlide}
+
                     {FinalSlide}
                 </Deck>
             </Spectacle>

@@ -8,6 +8,7 @@
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.production.js",
     "lint": "eslint --ext .js,.jsx .",
     "demo-static-basic": "babel-node assets/static-basic.jsx",
+    "demo-univ-basic": "babel-node assets/univ-basic.jsx",
     "deploy": "npm run clean & npm run build && surge -p .",
     "start": "cross-env NODE_ENV=development node server.js"
   },

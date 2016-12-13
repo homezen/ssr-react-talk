@@ -10,7 +10,7 @@ const HtmlDoc = ({title, text}) => (
             <h1>{title}</h1>
             <p>{text}</p>
             <div id='react-target' />
-            <script src='./widget.js' />
+            <script async src='./widget.js' />
         </body>
     </html>
 )
