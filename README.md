@@ -1,5 +1,7 @@
 # React Static/Server-Side Rendering (S/SSR) Talk
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/homezen/ssr-react-talk.svg)](https://greenkeeper.io/)
+
 This talk uses Spectacle -  [https://github.com/FormidableLabs/spectacle/blob/master/README.markdown](https://github.com/FormidableLabs/spectacle/blob/master/README.markdown).
 
 ## Running examples
